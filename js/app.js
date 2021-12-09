@@ -1,63 +1,94 @@
 window.onload = () => {
     let left = document.getElementById(`left`);
     let right = document.getElementById(`right`);
-    let slides = document.querySelectorAll(`main p`);
+    let original = document.getElementById(`original-image`);
+    let red = document.getElementById(`red`);
+    let green = document.getElementById(`green`);
+    let blue = document.getElementById(`blue`);
+    let black = document.getElementById(`black`);
     let currentSlide = 0;
-    slides[0].style.display = `block`;
+
+    original.style.display = `none`;
+    red.style.display = `none`;
+    green.style.display = `none`;
+    blue.style.display = `none`;
+    black.style.display = `none`;
 
     right.addEventListener(`click`, () => {
     currentSlide = currentSlide + 1;
     if (currentSlide === 1)  {
-        slides[0].style.display = `none`;
-        slides[1].style.display = `block`;
-        slides[2].style.display = `none`;
-        slides[3].style.display = `none`;
+      original.style.display = `none`;
+      red.style.display = `block`;
+      green.style.display = `none`;
+      blue.style.display = `none`;
+      black.style.display = `none`;
     }
     else if (currentSlide === 2) {
-        slides[0].style.display = `none`;
-        slides[1].style.display = `none`;
-        slides[2].style.display = `block`;
-        slides[3].style.display = `none`;
+      original.style.display = `none`;
+      red.style.display = `none`;
+      green.style.display = `block`;
+      blue.style.display = `none`;
+      black.style.display = `none`;
     }
     else if (currentSlide === 3) {
-        slides[0].style.display = `none`;
-        slides[1].style.display = `none`;
-        slides[2].style.display = `none`;
-        slides[3].style.display = `block`;
+        original.style.display = `none`;
+        red.style.display = `none`;
+        green.style.display = `none`;
+        blue.style.display = `block`;
+        black.style.display = `none`;
+    }
+    else if (currentSlide === 4) {
+        original.style.display = `none`;
+        red.style.display = `none`;
+        green.style.display = `none`;
+        blue.style.display = `none`;
+        black.style.display = `block`;
     }
     else if (currentSlide === 0) {
-        slides[0].style.display = `block`;
-        slides[1].style.display = `none`;
-        slides[2].style.display = `none`;
-        slides[3].style.display = `none`;
+        original.style.display = `block`;
+        red.style.display = `none`;
+        green.style.display = `none`;
+        blue.style.display = `none`;
+        black.style.display = `none`;
     }
-    } )
+  } );
 
     left.addEventListener(`click`, () => {
     currentSlide = currentSlide - 1;
     if (currentSlide === 1)  {
-        slides[0].style.display = `none`;
-        slides[1].style.display = `block`;
-        slides[2].style.display = `none`;
-        slides[3].style.display = `none`;
+      original.style.display = `none`;
+      red.style.display = `block`;
+      green.style.display = `none`;
+      blue.style.display = `none`;
+      black.style.display = `none`;
     }
     else if (currentSlide === 2) {
-        slides[0].style.display = `none`;
-        slides[1].style.display = `none`;
-        slides[2].style.display = `block`;
-        slides[3].style.display = `none`;
+      original.style.display = `none`;
+      red.style.display = `none`;
+      green.style.display = `block`;
+      blue.style.display = `none`;
+      black.style.display = `none`;
     }
     else if (currentSlide === 3) {
-        slides[0].style.display = `none`;
-        slides[1].style.display = `none`;
-        slides[2].style.display = `none`;
-        slides[3].style.display = `block`;
+        original.style.display = `none`;
+        red.style.display = `none`;
+        green.style.display = `none`;
+        blue.style.display = `block`;
+        black.style.display = `none`;
+    }
+    else if (currentSlide === 4) {
+        original.style.display = `none`;
+        red.style.display = `none`;
+        green.style.display = `none`;
+        blue.style.display = `none`;
+        black.style.display = `block`;
     }
     else if (currentSlide === 0) {
-        slides[0].style.display = `block`;
-        slides[1].style.display = `none`;
-        slides[2].style.display = `none`;
-        slides[3].style.display = `none`;
+        original.style.display = `block`;
+        red.style.display = `none`;
+        green.style.display = `none`;
+        blue.style.display = `none`;
+        black.style.display = `none`;
     }
     } )
 }

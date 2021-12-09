@@ -8,11 +8,19 @@ window.onload = () => {
     let black = document.getElementById(`black`);
     let currentSlide = 0;
 
-    original.style.display = `none`;
+    original.style.display = `block`;
     red.style.display = `none`;
     green.style.display = `none`;
     blue.style.display = `none`;
     black.style.display = `none`;
+
+    //sets boundaries for the currentSlide variable, so it cannot be clicked
+    //over or below a certain limit. Code from here:
+    //https://riptutorial.com/javascript/example/16997/
+    //restrict-number-to-min-max-range
+    function boundaries(min, max, val) {
+    return Math.min(Math.max(min, +val), max);
+    }
 
     right.addEventListener(`click`, () => {
     currentSlide = currentSlide + 1;
@@ -51,6 +59,7 @@ window.onload = () => {
         blue.style.display = `none`;
         black.style.display = `none`;
     }
+    currentSlide = boundaries(0, 4, currentSlide);
   } );
 
     left.addEventListener(`click`, () => {
@@ -90,5 +99,12 @@ window.onload = () => {
         blue.style.display = `none`;
         black.style.display = `none`;
     }
-    } )
-}
+    currentSlide = boundaries(0, 4, currentSlide);
+  } );
+};
+//to do:
+//-add text to html
+//-replace buttons with button images
+//-fix crlf error (unix fix not working?)
+//-add arrow key event listener
+//-css styling

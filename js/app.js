@@ -13,6 +13,8 @@ window.onload = () => {
     green.style.display = `none`;
     blue.style.display = `none`;
     black.style.display = `none`;
+    left.style.display = `none`;
+    right.style.display = `block`;
 
     //sets boundaries for the currentSlide variable, so it cannot be clicked
     //over or below a certain limit. Code from here:
@@ -30,6 +32,8 @@ window.onload = () => {
       green.style.display = `none`;
       blue.style.display = `none`;
       black.style.display = `none`;
+      left.style.display = `block`;
+      right.style.display = `block`;
     }
     else if (currentSlide === 2) {
       original.style.display = `none`;
@@ -37,6 +41,8 @@ window.onload = () => {
       green.style.display = `block`;
       blue.style.display = `none`;
       black.style.display = `none`;
+      left.style.display = `block`;
+      right.style.display = `block`;
     }
     else if (currentSlide === 3) {
         original.style.display = `none`;
@@ -44,6 +50,8 @@ window.onload = () => {
         green.style.display = `none`;
         blue.style.display = `block`;
         black.style.display = `none`;
+        left.style.display = `block`;
+        right.style.display = `block`;
     }
     else if (currentSlide === 4) {
         original.style.display = `none`;
@@ -51,6 +59,8 @@ window.onload = () => {
         green.style.display = `none`;
         blue.style.display = `none`;
         black.style.display = `block`;
+        left.style.display = `block`;
+        right.style.display = `none`;
     }
     else if (currentSlide === 0) {
         original.style.display = `block`;
@@ -58,6 +68,8 @@ window.onload = () => {
         green.style.display = `none`;
         blue.style.display = `none`;
         black.style.display = `none`;
+        left.style.display = `none`;
+        right.style.display = `block`;
     }
     currentSlide = boundaries(0, 4, currentSlide);
   } );
@@ -70,6 +82,8 @@ window.onload = () => {
       green.style.display = `none`;
       blue.style.display = `none`;
       black.style.display = `none`;
+      left.style.display = `block`;
+      right.style.display = `block`;
     }
     else if (currentSlide === 2) {
       original.style.display = `none`;
@@ -77,6 +91,8 @@ window.onload = () => {
       green.style.display = `block`;
       blue.style.display = `none`;
       black.style.display = `none`;
+      left.style.display = `block`;
+      right.style.display = `block`;
     }
     else if (currentSlide === 3) {
         original.style.display = `none`;
@@ -84,6 +100,8 @@ window.onload = () => {
         green.style.display = `none`;
         blue.style.display = `block`;
         black.style.display = `none`;
+        left.style.display = `block`;
+        right.style.display = `block`;
     }
     else if (currentSlide === 4) {
         original.style.display = `none`;
@@ -91,6 +109,8 @@ window.onload = () => {
         green.style.display = `none`;
         blue.style.display = `none`;
         black.style.display = `block`;
+        left.style.display = `block`;
+        right.style.display = `none`;
     }
     else if (currentSlide === 0) {
         original.style.display = `block`;
@@ -98,13 +118,13 @@ window.onload = () => {
         green.style.display = `none`;
         blue.style.display = `none`;
         black.style.display = `none`;
+        left.style.display = `none`;
+        right.style.display = `block`;
     }
     currentSlide = boundaries(0, 4, currentSlide);
   } );
 };
 //to do:
-//-add text to html
-//-replace buttons with button images
 //-fix crlf error (unix fix not working?)
 //-add arrow key event listener
 //-css styling

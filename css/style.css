@@ -1,3 +1,38 @@
 .slides {
+  align-items: center;
+  display: flex;
   position: relative;
+  left: 28%;
+  height: 300px;
+  width: 600px;
+  background: #ccc;
+  padding: 80px;
+}
+
+.left {
+  position: absolute;
+  left: 0;
+  z-index: 2;
+}
+
+.right {
+  position: absolute;
+  right: 0;
+  z-index: 2;
+}
+
+img {
+  float: left;
+  text-align: left;
+  position: relative;
+  padding-right: 20px;
+  z-index: 1;
+}
+
+h1 {
+  text-align: left;
+}
+
+p {
+  text-align: left;
 }

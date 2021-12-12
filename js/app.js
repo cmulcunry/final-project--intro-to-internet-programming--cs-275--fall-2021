@@ -1,4 +1,5 @@
 window.onload = () => {
+  
     let left = document.getElementById(`left`);
     let right = document.getElementById(`right`);
     let original = document.getElementById(`original-image`);
@@ -6,125 +7,117 @@ window.onload = () => {
     let green = document.getElementById(`green`);
     let blue = document.getElementById(`blue`);
     let black = document.getElementById(`black`);
+    document.onkeydown = arrowKeys;
     let currentSlide = 0;
 
-    original.style.display = `block`;
-    red.style.display = `none`;
-    green.style.display = `none`;
-    blue.style.display = `none`;
-    black.style.display = `none`;
     left.style.display = `none`;
     right.style.display = `block`;
+    red.classList.add(`default`);
+    green.classList.add(`default`);
+    blue.classList.add(`default`);
+    black.classList.add(`default`);
 
     //sets boundaries for the currentSlide variable, so it cannot be clicked
     //over or below a certain limit. Code from here:
     //https://riptutorial.com/javascript/example/16997/
     //restrict-number-to-min-max-range
     function boundaries(min, max, val) {
-    return Math.min(Math.max(min, +val), max);
+        return Math.min(Math.max(min, +val), max);
     }
 
-    right.addEventListener(`click`, () => {
-    currentSlide = currentSlide + 1;
-    if (currentSlide === 1)  {
-      original.style.display = `none`;
-      red.style.display = `block`;
-      green.style.display = `none`;
-      blue.style.display = `none`;
-      black.style.display = `none`;
-      left.style.display = `block`;
-      right.style.display = `block`;
+    function moveRight() {
+        currentSlide = currentSlide + 1;
+        if (currentSlide === 1)  {
+            left.style.display = `block`;
+            right.style.display = `block`;
+            original.classList.remove(`slideCenter`);
+            original.classList.add(`slideLeft`);
+            red.classList.add(`slideCenter`);
+        }
+        else if (currentSlide === 2) {
+            left.style.display = `block`;
+            right.style.display = `block`;
+            red.classList.remove(`slideCenter`);
+            red.classList.add(`slideLeft`);
+            green.classList.add(`slideCenter`);
+        }
+        else if (currentSlide === 3) {
+            left.style.display = `block`;
+            right.style.display = `block`;
+            green.classList.remove(`slideCenter`);
+            green.classList.add(`slideLeft`);
+            blue.classList.add(`slideCenter`);
+        }
+        else if (currentSlide === 4) {
+            left.style.display = `block`;
+            right.style.display = `none`;
+            blue.classList.remove(`slideCenter`);
+            blue.classList.add(`slideLeft`);
+            black.classList.add(`slideCenter`);
+        }
+        else if (currentSlide === 0) {
+            original.classList.add(`slideCenter`);
+        }
+        currentSlide = boundaries(0, 4, currentSlide);
     }
-    else if (currentSlide === 2) {
-      original.style.display = `none`;
-      red.style.display = `none`;
-      green.style.display = `block`;
-      blue.style.display = `none`;
-      black.style.display = `none`;
-      left.style.display = `block`;
-      right.style.display = `block`;
+
+    function moveLeft() {
+        currentSlide = currentSlide - 1;
+        if (currentSlide === 1)  {
+            left.style.display = `block`;
+            right.style.display = `block`;
+            green.classList.remove(`slideCenter`);
+            green.classList.remove(`slideLeft`);
+            green.classList.add(`slideRight`);
+            red.classList.add(`slideCenter`);
+        }
+        else if (currentSlide === 2) {
+            left.style.display = `block`;
+            right.style.display = `block`;
+            blue.classList.remove(`slideCenter`);
+            blue.classList.remove(`slideLeft`);
+            blue.classList.add(`slideRight`);
+            green.classList.add(`slideCenter`);
+        }
+        else if (currentSlide === 3) {
+            left.style.display = `block`;
+            right.style.display = `block`;
+            black.classList.remove(`slideCenter`);
+            black.classList.remove(`slideLeft`);
+            black.classList.add(`slideRight`);
+            blue.classList.add(`slideCenter`);
+        }
+        else if (currentSlide === 4) {
+            left.style.display = `block`;
+            right.style.display = `none`;
+            black.classList.add(`slideCenter`);
+        }
+        else if (currentSlide === 0) {
+            left.style.display = `none`;
+            right.style.display = `block`;
+            red.classList.remove(`slideCenter`);
+            red.classList.remove(`slideLeft`);
+            red.classList.add(`slideRight`);
+            original.classList.add(`slideCenter`);
+        }
+        currentSlide = boundaries(0, 4, currentSlide);
     }
-    else if (currentSlide === 3) {
-        original.style.display = `none`;
-        red.style.display = `none`;
-        green.style.display = `none`;
-        blue.style.display = `block`;
-        black.style.display = `none`;
-        left.style.display = `block`;
-        right.style.display = `block`;
-    }
-    else if (currentSlide === 4) {
-        original.style.display = `none`;
-        red.style.display = `none`;
-        green.style.display = `none`;
-        blue.style.display = `none`;
-        black.style.display = `block`;
-        left.style.display = `block`;
-        right.style.display = `none`;
-    }
-    else if (currentSlide === 0) {
-        original.style.display = `block`;
-        red.style.display = `none`;
-        green.style.display = `none`;
-        blue.style.display = `none`;
-        black.style.display = `none`;
-        left.style.display = `none`;
-        right.style.display = `block`;
-    }
-    currentSlide = boundaries(0, 4, currentSlide);
-  } );
 
     left.addEventListener(`click`, () => {
-    currentSlide = currentSlide - 1;
-    if (currentSlide === 1)  {
-      original.style.display = `none`;
-      red.style.display = `block`;
-      green.style.display = `none`;
-      blue.style.display = `none`;
-      black.style.display = `none`;
-      left.style.display = `block`;
-      right.style.display = `block`;
+        moveLeft();
+    });
+
+    right.addEventListener(`click`, () => {
+        moveRight();
+    });
+
+    function arrowKeys() {
+        if (event.keyCode == `37`) {
+            moveLeft();
+        }
+        else if (event.keyCode == `39`) {
+            moveRight();
+        }
     }
-    else if (currentSlide === 2) {
-      original.style.display = `none`;
-      red.style.display = `none`;
-      green.style.display = `block`;
-      blue.style.display = `none`;
-      black.style.display = `none`;
-      left.style.display = `block`;
-      right.style.display = `block`;
-    }
-    else if (currentSlide === 3) {
-        original.style.display = `none`;
-        red.style.display = `none`;
-        green.style.display = `none`;
-        blue.style.display = `block`;
-        black.style.display = `none`;
-        left.style.display = `block`;
-        right.style.display = `block`;
-    }
-    else if (currentSlide === 4) {
-        original.style.display = `none`;
-        red.style.display = `none`;
-        green.style.display = `none`;
-        blue.style.display = `none`;
-        black.style.display = `block`;
-        left.style.display = `block`;
-        right.style.display = `none`;
-    }
-    else if (currentSlide === 0) {
-        original.style.display = `block`;
-        red.style.display = `none`;
-        green.style.display = `none`;
-        blue.style.display = `none`;
-        black.style.display = `none`;
-        left.style.display = `none`;
-        right.style.display = `block`;
-    }
-    currentSlide = boundaries(0, 4, currentSlide);
-  } );
+
 };
-//to do:
-//-fix crlf error (unix fix not working?)
-//-add arrow key event listener
-//-css styling

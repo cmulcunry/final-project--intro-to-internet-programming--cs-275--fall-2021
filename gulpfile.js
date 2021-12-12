@@ -7,6 +7,7 @@ const cssLinter = require(`gulp-stylelint`);
 const cssCompressor = require(`gulp-uglifycss`)
 const browserSync = require(`browser-sync`);
 const jsCompressor = require(`gulp-uglify`);
+const imageCompressor = require(`gulp-imagemin`);
 const reload = browserSync.reload;
 let browserChoice = `default`;
 
@@ -30,7 +31,7 @@ let transpileJSForProd = () => {
     return src(`js/*.js`)
         .pipe(babel())
         .pipe(jsCompressor())
-        .pipe(dest(`prod/js`));
+        .pipe(dest(`prod/scripts`));
 };
 
 let compileCSSForProd = () => {
@@ -51,7 +52,7 @@ let lintJS = () => {
             'no-debugger': 0,
             indent: [2, 4, {SwitchCase: 1}],
             quotes: [2, 'backtick'],
-            'linebreak-style': [2, 'windows'], //changed to remove "Expected linebreaks to be 'LF' but found 'CRLF' linebreak-style" error
+            'linebreak-style': 0, //changed to remove "Expected linebreaks to be 'LF' but found 'CRLF' linebreak-style" error
             semi: [2, 'always'],
             'max-len': [2, 85, 4]
           },
@@ -73,6 +74,21 @@ let lintCSS = () => {
               {formatter: "string", console: true}
             ]
       }));
+};
+
+let compressImages = () => {
+    return src(`img/**/*`)
+        .pipe(imageCompressor({
+            optipng: ['-i 1', '-strip all', '-fix', '-o7', '-force'],
+            pngquant: ['--speed=1', '--force', 256],
+            zopflipng: ['-y', '--lossy_8bit', '--lossy_transparent'],
+            jpegRecompress: ['--strip', '--quality', 'medium', '--min', 40, '--max', 80],
+            mozjpeg: ['-optimize', '-progressive'],
+            gifsicle: ['--optimize'],
+            svgo: ['--enable', 'cleanupIDs', '--disable', 'convertColors'],
+            quiet: false
+        }))
+        .pipe(dest(`prod/img`));
 };
 
 let serve = () => {
@@ -103,18 +119,6 @@ let serve = () => {
     ).on(`change`, reload);
 };
 
-let copyUnprocessedAssetsForProd = () => {
-    return src([
-      `dev/*.*`,       // Source all files,
-      `dev/**`,        // and all folders,
-      `!dev/html/`,    // but not the HTML folder
-      `!dev/html/*.*`, // or any files in it
-      `!dev/html/**`,  // or any sub folders;
-      `!dev/**/*.js`,  // ignore JS;
-      `!dev/css/**` // and, ignore Sass/CSS.
-    ], {dot: true}).pipe(dest(`prod`));
-};
-
 exports.validateHTML = validateHTML;
 exports.compressHTML = compressHTML;
 exports.HTMLProcessing = series(validateHTML, compressHTML);
@@ -123,6 +127,5 @@ exports.lintCSS = lintCSS;
 exports.transpileJSForDev = transpileJSForDev
 exports.transpileJSForProd = transpileJSForProd;
 exports.compileCSSForProd = compileCSSForProd;
-exports.copyUnprocessedAssetsForProd = copyUnprocessedAssetsForProd;
-exports.dev = series(lintCSS, lintJS, transpileJSForDev, validateHTML, serve);
-exports.build = series(compressHTML, transpileJSForProd, compileCSSForProd, copyUnprocessedAssetsForProd);
+exports.serve = series(lintCSS, lintJS, transpileJSForDev, validateHTML, serve);
+exports.build = series(compressHTML, transpileJSForProd, compileCSSForProd, compressImages);
